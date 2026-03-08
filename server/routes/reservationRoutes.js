@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Reservation = require("../models/Reservation");
+const Event = require("../models/Event");
 
 // Create reservation
 router.post("/", async (req, res) => {
@@ -34,6 +35,18 @@ router.put("/:id", async (req, res) => {
     req.body,
     { new: true },
   );
+  if (req.body.status === "confirmed") {
+    const reservation = await Reservation.findById(req.params.id);
+
+    const event = new Event({
+      reservation: reservation._id,
+      eventDate: reservation.eventDate,
+      location: reservation.venue.address,
+      packages: reservation.packages,
+    });
+
+    await event.save();
+  }
   res.json(reservation);
 });
 
