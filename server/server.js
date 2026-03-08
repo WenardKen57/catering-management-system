@@ -12,12 +12,14 @@ const packageRoutes = require("./routes/packageRoutes");
 const reservationRoutes = require("./routes/reservationRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/auth", authRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
