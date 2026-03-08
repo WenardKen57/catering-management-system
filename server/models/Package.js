@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const packageSchema = mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String },
-  prince: { type: Number, required: true },
+  price: { type: Number, required: true },
   items: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
 });
