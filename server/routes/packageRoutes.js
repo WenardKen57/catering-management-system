@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
 // Update package
 router.put("/:id", async (req, res) => {
   const pkg = await Package.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
+    returnDocument: "after",
   });
   res.json(pkg);
 });
