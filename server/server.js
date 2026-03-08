@@ -7,11 +7,11 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 
-const userRoutes = require("./routes/users");
-const packageRoutes = require("./routes/packages");
-const reservationRoutes = require("./routes/reservations");
-const eventRoutes = require("./routes/events");
-const paymentRoutes = require("./routes/payments");
+const userRoutes = require("./routes/userRoutes");
+const packageRoutes = require("./routes/packageRoutes");
+const reservationRoutes = require("./routes/reservationRoutes");
+const eventRoutes = require("./routes/eventRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
@@ -20,10 +20,7 @@ app.use("/api/events", eventRoutes);
 app.use("/api/payments", paymentRoutes);
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 

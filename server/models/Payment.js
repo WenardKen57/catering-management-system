@@ -13,4 +13,4 @@ const paymentSchema = mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.Model("Payment", paymentSchema);
+module.exports = mongoose.model("Payment", paymentSchema);
