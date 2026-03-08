@@ -9,6 +9,7 @@ const reservationSchema = mongoose.Schema({
   packages: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Package", required: true },
   ],
+  tentativeVenue: { type: String }, // Location that isn't fixed yet
   eventDate: { type: Date, required: true },
   totalPrice: { type: Number, required: true },
 
