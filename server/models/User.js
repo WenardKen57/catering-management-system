@@ -10,6 +10,18 @@ const userSchema = new mongoose.Schema({
     enum: ["customer", "admin", "manager", "staff"],
     default: "customer",
   },
+  customerInfo: {
+    preferences: { type: Object },
+    loyaltyPoints: { type: Number, default: 0 },
+  },
+  staffInfo: {
+    position: { type: String },
+    assignedEvents: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
+  },
+  managerInfo: {
+    managedStaff: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    department: { type: String },
+  },
   createdAt: { type: Date, default: Date.now },
 });
 
