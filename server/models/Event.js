@@ -7,27 +7,31 @@
 
 const mongoose = require("mongoose");
 
-const eventSchema = mongoose.Schema({
-  reservation: {
-    type: mongoose.Types.ObjectId,
-    ref: "Reservation",
-    required: true,
+const eventSchema = mongoose.Schema(
+  {
+    reservation: {
+      type: mongoose.Types.ObjectId,
+      ref: "Reservation",
+      required: true,
+    },
+    eventName: { type: String },
+    eventDate: { type: Date, required: true },
+    location: { type: String, required: true },
+    packages: [
+      { type: mongoose.Types.ObjectId, ref: "Package", required: true },
+    ],
+
+    staffAssigned: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+
+    status: {
+      type: String,
+      enum: ["scheduled", "inProgress", "completed", "cancelled"],
+      default: "scheduled",
+    },
+
+    notes: { type: String },
   },
-  eventName: { type: String },
-  eventDate: { type: Date, required: true },
-  location: { type: String, required: true },
-  packages: [{ type: mongoose.Types.ObjectId, ref: "Package", required: true }],
-
-  staffAssigned: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-
-  status: {
-    type: String,
-    enum: ["scheduled", "inProgress", "completed", "cancelled"],
-    default: "scheduled",
-  },
-
-  notes: { type: String },
-  createdAt: { type: Date, default: Date.now },
-});
+  { timestamps: true },
+);
 
 module.exports = mongoose.model("Event", eventSchema);
