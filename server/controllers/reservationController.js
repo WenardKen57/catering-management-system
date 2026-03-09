@@ -17,7 +17,8 @@ exports.getReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find()
       .populate("customer")
-      .populate("packages");
+      .populate("packages")
+      .populate("payment");
     res.json(reservations);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -29,7 +30,8 @@ exports.getReservationById = async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id)
       .populate("customer")
-      .populate("packages");
+      .populate("packages")
+      .populate("payment");
 
     if (!reservation) {
       return res.status(404).json({ error: "Reservation not found" });

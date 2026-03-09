@@ -15,8 +15,12 @@ const reservationSchema = mongoose.Schema({
     address: { type: String },
     notes: { type: String }, // notes about the venue
   },
+  pax: { type: Number, default: 1 },
   totalPrice: { type: Number, required: true },
-
+  payment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Payment",
+  },
   status: {
     type: String,
     enum: ["reserved", "pendingPayment", "confirmed", "completed", "cancelled"],
