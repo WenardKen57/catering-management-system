@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const addonSchema = require("./schemas/Addon");
 
 const packageSchema = mongoose.Schema(
   {
@@ -7,6 +8,7 @@ const packageSchema = mongoose.Schema(
     price: { type: Number, required: true },
     menu: [{ type: String }],
     services: [{ type: String }],
+    addons: [addonSchema],
   },
   { timestamps: true },
 );
