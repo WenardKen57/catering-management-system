@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
     });
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
@@ -61,6 +61,6 @@ exports.login = async (req, res) => {
     });
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };

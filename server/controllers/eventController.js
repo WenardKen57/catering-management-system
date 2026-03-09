@@ -8,7 +8,7 @@ exports.createEvent = async (req, res) => {
     res.status(201).json(event);
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
@@ -20,7 +20,7 @@ exports.getEvents = async (req, res) => {
     res.json(events);
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
@@ -39,7 +39,7 @@ exports.getEventById = async (req, res) => {
     res.json(event);
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
@@ -53,7 +53,7 @@ exports.updateEvent = async (req, res) => {
     res.json(event);
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
 
@@ -64,6 +64,6 @@ exports.deleteEvent = async (req, res) => {
     res.json({ message: "Event deleted" });
   } catch (error) {
     res.status(500);
-    throw new Error({ error: error.message });
+    throw new Error(error.message);
   }
 };
