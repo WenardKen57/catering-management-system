@@ -22,4 +22,9 @@ app.use("/api/events", eventRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const startServer = async () => {
+  await connectDB();
+  app.listen(5000, () => console.log("Server running on port 5000"));
+};
+
+startServer();
