@@ -7,6 +7,8 @@ const connectDB = require("./config/db");
 const app = express();
 app.use(bodyParser.json());
 
+const errorMiddleware = require("./middleware/errorMiddleware");
+
 const userRoutes = require("./routes/userRoutes");
 const packageRoutes = require("./routes/packageRoutes");
 const reservationRoutes = require("./routes/reservationRoutes");
@@ -20,6 +22,8 @@ app.use("/api/reservations", reservationRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
+
+app.use(errorMiddleware);
 
 const startServer = async () => {
   await connectDB();
