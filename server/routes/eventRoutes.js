@@ -16,6 +16,6 @@ router.post("/", authMiddleware, roleMiddleware("admin"), createEvent);
 router.get("/", authMiddleware, roleMiddleware("admin"), getEvents);
 router.get("/:id", authMiddleware, roleMiddleware("admin"), getEventById);
 router.put("/:id", authMiddleware, roleMiddleware("admin"), updateEvent);
-router.delete("/:id", authMiddleware, roleMiddlware("admin"), deleteEvent);
+router.delete("/:id", authMiddleware, roleMiddleware("admin"), deleteEvent);
 
 module.exports = router;

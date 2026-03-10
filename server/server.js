@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
@@ -15,6 +16,13 @@ const reservationRoutes = require("./routes/reservationRoutes");
 const eventRoutes = require("./routes/eventRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const authRoutes = require("./routes/authRoutes");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your React port
+    credentials: true,
+  }),
+);
 
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
