@@ -1,57 +1,29 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/common/Navbar";
-
-import Home from "./pages/public/Home";
+import MainLayout from "./layouts/MainLayout";
+import Home from "./pages/public/LandingPage";
 import Login from "./pages/public/Login";
-import Packages from "./pages/public/Packages";
-
-import CustomerDashboard from "./pages/customer/CustomerDashboard";
-import MyReservations from "./pages/customer/MyReservations";
-
-import AdminDashboard from "./pages/admin/AdminDashboard";
-
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Register from "./pages/public/Register";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/packages" element={<Packages />} />
+        {/* PUBLIC ROUTES - All wrapped in MainLayout */}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-        <Route
-          path="/customer"
-          element={
-            <ProtectedRoute>
-              <CustomerDashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* CUSTOMER ROUTES - Protected */}
+        <Route element={<ProtectedRoute role="customer" />}>
+          <Route element={<MainLayout />}></Route>
+        </Route>
 
-        <Route
-          path="/customer/reservations"
-          element={
-            <ProtectedRoute>
-              <MyReservations />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
+        {/* ADMIN ROUTES - Might need a different Layout! */}
+        <Route element={<ProtectedRoute role="admin" />}></Route>
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
