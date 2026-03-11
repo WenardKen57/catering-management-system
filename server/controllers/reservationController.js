@@ -8,7 +8,8 @@ exports.createReservation = async (req, res) => {
     await reservation.save();
     res.status(201).json(reservation);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -21,7 +22,8 @@ exports.getReservations = async (req, res) => {
       .populate("payment");
     res.json(reservations);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -34,12 +36,14 @@ exports.getReservationById = async (req, res) => {
       .populate("payment");
 
     if (!reservation) {
-      return res.status(404).json({ error: "Reservation not found" });
+      res.status(404);
+      throw new Error("Reservation not found");
     }
 
     res.json(reservation);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -54,7 +58,8 @@ exports.updateReservation = async (req, res) => {
     );
 
     if (!reservation) {
-      return res.status(404).json({ error: "Reservation not found" });
+      res.status(404);
+      throw new Error("Reservation not found");
     }
 
     // If status changed to confirmed, create event
@@ -78,7 +83,8 @@ exports.updateReservation = async (req, res) => {
 
     res.json(reservation);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -88,6 +94,7 @@ exports.deleteReservation = async (req, res) => {
     await Reservation.findByIdAndDelete(req.params.id);
     res.json({ message: "Reservation deleted" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };

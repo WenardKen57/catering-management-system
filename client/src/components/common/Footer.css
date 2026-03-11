@@ -1,0 +1,26 @@
+/* Footer */
+.footer {
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  padding: 80px 10% 40px;
+}
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.footer-contact h4 {
+  margin-bottom: 20px;
+}
+.footer-contact p {
+  color: #666;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.footer-legal {
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding-top: 30px;
+  font-size: 0.75rem;
+  color: #999;
+}

@@ -1,5 +1,6 @@
 const Payment = require("../models/Payment");
 const Reservation = require("../models/Reservation");
+const mongoose = require("mongoose");
 
 // Create payment
 exports.createPayment = async (req, res) => {
@@ -8,7 +9,8 @@ exports.createPayment = async (req, res) => {
     await payment.save();
     res.status(201).json(payment);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400);
+    throw new Error(error.message);
   }
 };
 
@@ -18,7 +20,7 @@ exports.getPayments = async (req, res) => {
     const payments = await Payment.find().populate("reservation");
     res.json(payments);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json(error.message);
   }
 };
 
@@ -30,23 +32,32 @@ exports.getPaymentById = async (req, res) => {
     );
 
     if (!payment) {
-      return res.status(404).json({ message: "Payment not found" });
+      res.status(404);
+      throw new Error("Payment not found");
     }
 
     res.json(payment);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
 // Update payment
 exports.updatePayment = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400);
+      throw new Error("Invalid package ID");
+    }
     const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
 
-    if (!payment) return res.status(404).json({ message: "Payment not found" });
+    if (!payment) {
+      res.status(404);
+      throw new Error("Payment not found");
+    }
 
     // If payment is marked as paid, confirm the reservation
     if (req.body.status === "paid" && payment.reservation) {
@@ -57,7 +68,8 @@ exports.updatePayment = async (req, res) => {
 
     res.json(payment);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400);
+    throw new Error(error.message);
   }
 };
 
@@ -67,6 +79,7 @@ exports.deletePayment = async (req, res) => {
     await Payment.findByIdAndDelete(req.params.id);
     res.json({ message: "Payment deleted" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };

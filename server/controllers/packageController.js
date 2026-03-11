@@ -1,4 +1,5 @@
 const Package = require("../models/Package");
+const mongoose = require("mongoose");
 
 // Create package
 exports.createPackage = async (req, res) => {
@@ -7,7 +8,8 @@ exports.createPackage = async (req, res) => {
     await pkg.save();
     res.status(201).json(pkg);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -17,46 +19,68 @@ exports.getPackages = async (req, res) => {
     const packages = await Package.find();
     res.json(packages);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
 // Get single package
 exports.getPackageById = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400);
+      throw new Error("Invalid package ID");
+    }
+
     const pkg = await Package.findById(req.params.id);
 
     if (!pkg) {
-      return res.status(404).json({ error: "Package not found" });
+      res.status(404);
+      throw new Error("Package not found");
     }
 
     res.json(pkg);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
 // Update package
 exports.updatePackage = async (req, res) => {
   try {
-    const pkg = await Package.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { returnDocument: "after" }
-    );
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400);
+      throw new Error("Invalid package ID");
+    }
+
+    const pkg = await Package.findByIdAndUpdate(req.params.id, req.body, {
+      returnDocument: "after",
+    });
+
+    if (!pkg) {
+      res.status(404);
+      throw new Error("Package not found");
+    }
 
     res.json(pkg);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
 // Delete package
 exports.deletePackage = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400);
+      throw new Error("Invalid package ID");
+    }
     await Package.findByIdAndDelete(req.params.id);
     res.json({ message: "Package deleted" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };

@@ -1,11 +1,14 @@
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 
 const app = express();
 app.use(bodyParser.json());
+
+const errorMiddleware = require("./middleware/errorMiddleware");
 
 const userRoutes = require("./routes/userRoutes");
 const packageRoutes = require("./routes/packageRoutes");
@@ -14,12 +17,21 @@ const eventRoutes = require("./routes/eventRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const authRoutes = require("./routes/authRoutes");
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your React port
+    credentials: true,
+  }),
+);
+
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/auth", authRoutes);
+
+app.use(errorMiddleware);
 
 const startServer = async () => {
   await connectDB();

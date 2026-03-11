@@ -7,7 +7,8 @@ exports.createEvent = async (req, res) => {
     await event.save();
     res.status(201).json(event);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -18,7 +19,8 @@ exports.getEvents = async (req, res) => {
 
     res.json(events);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -29,11 +31,15 @@ exports.getEventById = async (req, res) => {
       .populate("customer")
       .populate("packages");
 
-    if (!event) return res.status(404).json({ error: "Event not found" });
+    if (!event) {
+      res.status(404);
+      throw new Error("Event not found");
+    }
 
     res.json(event);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -46,7 +52,8 @@ exports.updateEvent = async (req, res) => {
 
     res.json(event);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
 
@@ -56,6 +63,7 @@ exports.deleteEvent = async (req, res) => {
     await Event.findByIdAndDelete(req.params.id);
     res.json({ message: "Event deleted" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500);
+    throw new Error(error.message);
   }
 };
