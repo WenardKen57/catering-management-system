@@ -59,6 +59,9 @@ const LandingPage = () => {
       {/* Hero Section */}
       <header className="hero">
         <div className="hero-inner">
+          {/* Optional: Add a subtle 'background text' behind the main headline */}
+          <span className="hero-background-text">Epicure</span>
+
           <span className="gold-label">Catering Excellence</span>
           <h1>
             Minimalist Dining. <br /> Maximum Flavor.

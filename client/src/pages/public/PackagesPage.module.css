@@ -1,0 +1,36 @@
+/* PackagesPage.module.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  background-color: #fcfcfc; /* Very light off-white to make the white cards pop */
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  color: #1a2a44; /* Navy Blue */
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  /* This is the magic line that creates a responsive grid without media queries! */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2.5rem;
+  align-items: stretch; /* Makes all cards in a row the same height */
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  color: #d4af37; /* Gold */
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}

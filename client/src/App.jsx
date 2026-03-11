@@ -4,6 +4,7 @@ import Home from "./pages/public/LandingPage";
 import Login from "./pages/public/Login";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Register from "./pages/public/Register";
+import PackagesPage from "./pages/public/PackagesPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/packages" element={<PackagesPage />} />
         </Route>
 
         {/* CUSTOMER ROUTES - Protected */}

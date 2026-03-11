@@ -13,25 +13,58 @@ h3 {
 
 /* Hero */
 .hero {
-  height: 70vh;
-  background: #f9f9f9;
+  /* Image and light overlay */
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url("https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920");
+  background-size: cover;
+  background-position: center;
+  min-height: 70vh;
   display: flex;
   align-items: center;
-  padding-top: 80px;
-  padding-left: 10%;
+  justify-content: center;
+  position: relative; /* Essential for the background text positioning */
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1; /* Puts content above the background text */
+}
+
+/* The Background Text Effect */
+.hero-background-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15rem; /* Massive size */
+  font-weight: 900;
+  color: rgba(26, 42, 68, 0.03); /* Extremely faint Navy Blue */
+  pointer-events: none; /* Allows user to click through to the button */
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.hero-inner h1 {
+  color: #1a2a44;
+  font-size: 3.5rem;
+  margin: 1rem 0;
 }
 
 .hero h1 {
-  font-size: 4rem;
-  line-height: 1.1;
-  margin: 15px 0;
+  color: #1a2a44;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
 }
 .gold-label {
-  color: #d4af37;
+  color: #3043ec; /* Gold accent */
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   font-weight: 600;
-  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 1rem;
 }
 .cta-gold {
   background: #d4af37;
