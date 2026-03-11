@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css"; // We reuse the same CSS file for consistency!
+import { registerUser } from "../../services/authService";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -20,18 +21,21 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       return alert("Passwords do not match!");
     }
 
     setLoading(true);
     try {
-      // Replace with your actual register service call
-      // await registerUser(formData);
+      const { name, email, password } = formData;
+
+      await registerUser({ name, email, password });
+
       alert("Account created successfully!");
       navigate("/login");
     } catch (error) {
-      alert("Registration failed.");
+      alert(error.response?.data?.message || "Registration failed.");
     } finally {
       setLoading(false);
     }
